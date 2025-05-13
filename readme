@@ -1,0 +1,11 @@
+install typescript
+
+npm init --y
+tsc init
+npm i express @types/express nodemon ts-node @types/node typescript
+npm i mysql2 typeorm reflect-metadata
+
+make show these 2 lines are uncommit in tsconfig file
+
+1. "experimentalDecorators": true,
+2. "emitDecoratorMetadata": true,
