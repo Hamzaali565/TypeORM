@@ -4,7 +4,7 @@ import { DataSource } from "typeorm";
 //   type: "mysql",
 //   host: "localhost",
 //   username: "root",
-//   password: "Hamzaali565!",
+//   password: "****",
 //   database: "honey_12",
 //   synchronize: true,
 //   logging: true,
