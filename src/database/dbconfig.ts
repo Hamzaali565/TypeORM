@@ -1,3 +1,4 @@
+import path from "path";
 import { DataSource } from "typeorm";
 
 // const dbConfig = new DataSource({
@@ -21,6 +22,7 @@ const dbConfig = new DataSource({
   database: process.env.TYPEORM_DATABASE,
   logging: true,
   synchronize: true,
+  entities: [path.join(__dirname, "../entity/*.ts")],
 });
 
 export { dbConfig };
