@@ -7,20 +7,20 @@ const create_user = async (req: Request, res: Response) => {
     const userRepository = AppDataSource.getRepository(User);
     const { username, email, password, cell_number } = req.body;
     // method 1
-    // const user = new User();
-    // user.email = "Timber";
-    // user.username = "Timber";
-    // user.password = "Saw";
-    // user.cell_number = 25;
-    // await userRepository.save(user);
+    const user = new User();
+    user.email = email;
+    user.username = username;
+    user.password = password;
+    user.cell_number = cell_number;
+    await userRepository.save(user);
 
     // method 2
-    const user = await userRepository.insert({
-      username,
-      email,
-      password,
-      cell_number,
-    });
+    // const user = await userRepository.insert({
+    //   username,
+    //   email,
+    //   password,
+    //   cell_number,
+    // });
 
     console.log(user);
 
@@ -61,31 +61,51 @@ const update_user = async (req: Request, res: Response) => {
     //   return;
     // }
 
-    // data.password = "2122";
+    // data.password = "2122aq";
+    // data.username = "Hamza ali   ";
 
     // data = await userRepo.save(data);
 
     // method 2
     // const data = await userRepo.update(1, { cell_number: 12 });
 
+    // update many with specific id /// no middleware support
+    // const id: { id: number; username: string; password?: string }[] = [
+    //   { id: 1, username: "mohsin", password: "hamzaali" },
+    //   { id: 18, username: "kamran" },
+    //   { id: 20, username: "Hamza ali", password: "11111" },
+    // ];
+
+    // const data = await Promise.all(
+    //   id.map((items: { id: number; username: string; password?: string }) => {
+    //     return userRepo.update(items.id, {
+    //       username: items?.username,
+    //       password: items?.password,
+    //     });
+    //   })
+    // );
     // update many with specific id
-    const id: { id: number; username: string; password: string }[] = [
-      { id: 1, username: "Shahid", password: "1212" },
-      { id: 3, username: "Zahid", password: "1212000" },
+    const id: { id: number; username: string; password?: string }[] = [
+      { id: 1, username: "mohsin", password: "hamzaali" },
+      { id: 18, username: "kamran" },
+      { id: 20, username: "Hamza ali", password: "11111" },
     ];
 
     const data = await Promise.all(
-      id.map((items: { id: number; username: string; password: string }) => {
-        return userRepo.update(items.id, {
-          username: items?.username,
-          password: items.password,
-        });
+      id.map(async (item) => {
+        const user = await userRepo.findOneBy({ id: item.id });
+        if (!user) throw new Error(`User with ID ${item.id} not found`);
+
+        user.username = item.username;
+        if (item.password) user.password = item.password;
+
+        return userRepo.save(user);
       })
     );
 
     res.status(200).json({ data });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", error });
   }
 };
 
