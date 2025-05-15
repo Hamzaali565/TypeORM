@@ -8,12 +8,12 @@ export class User {
   @Column()
   username!: string;
 
-  @Column()
+  @Column({ unique: true })
   email!: String;
 
   @Column()
   password!: string;
 
-  @Column()
-  cell_number!: string;
+  @Column({})
+  cell_number!: number;
 }

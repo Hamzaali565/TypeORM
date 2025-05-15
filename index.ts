@@ -1,10 +1,9 @@
 import { app } from "./src/app";
-import { dbConfig } from "./src/database/dbconfig";
-
+import { AppDataSource } from "./src/database/dbconfig";
+import routes from "./src/routes/user.route";
 const port = process.env.PORT || 3001;
 
-dbConfig
-  .initialize()
+AppDataSource.initialize()
   .then(() => {
     app.listen(port, () => {
       console.log(
@@ -15,3 +14,5 @@ dbConfig
   .catch((error) => {
     console.log("databse connection failed with error", error);
   });
+
+app.use(routes);
