@@ -6,15 +6,11 @@ const create_user = async (req: Request, res: Response) => {
   try {
     const userRepository = AppDataSource.getRepository(User);
     const { username, email, password, cell_number } = req.body;
-    // method 1
-    const user = new User();
-    user.email = email;
-    user.username = username;
-    user.password = password;
-    user.cell_number = cell_number;
-    await userRepository.save(user);
 
-    // method 2
+    // method 1 middleware support
+    const user = new User();
+
+    // method 2 no middleware support
     // const user = await userRepository.insert({
     //   username,
     //   email,
