@@ -22,7 +22,7 @@ const dbConfig = new DataSource({
   database: process.env.TYPEORM_DATABASE,
   logging: true,
   synchronize: true,
-  entities: [path.join(__dirname, "../entity/*.ts")],
+  entities: [path.join(__dirname, "../entity_schema/*.ts")],
 });
 
 export { dbConfig };
