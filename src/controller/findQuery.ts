@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../database/dbconfig";
 import { User } from "../entity/user";
-import { Equal, LessThan, MoreThan, Not } from "typeorm";
+import { Between, Equal, In, LessThan, Like, MoreThan, Not } from "typeorm";
 
 const find_query = async (req: Request, res: Response) => {
   try {
@@ -60,6 +60,32 @@ const find_query = async (req: Request, res: Response) => {
         // id: LessThan(5),
         // id: MoreThan(5),
         id: Equal(18),
+      },
+    });
+
+    ///---- partial search ----///
+    data = await repoManager.find({
+      where: [
+        {
+          username: Like("%asad%"),
+        },
+        {
+          email: Like("%ali%"),
+        },
+      ],
+    });
+
+    //---- between ---//
+    data = await repoManager.find({
+      where: {
+        id: Between(1, 3),
+      },
+    });
+
+    //---- In ----//
+    data = await repoManager.find({
+      where: {
+        id: In([1, 18]),
       },
     });
 
