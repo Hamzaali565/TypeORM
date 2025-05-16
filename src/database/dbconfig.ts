@@ -23,7 +23,7 @@ const AppDataSource = new DataSource({
   port: parseInt(process.env.TYPEORM_DBPORT || "3306"),
   logging: true,
   synchronize: true,
-  entities: [path.join(__dirname, "../ent-1ToMany--ManyToOne/*.ts")],
+  entities: [path.join(__dirname, "../ent-many-to-many/*.ts")],
   // entities: [User],
 });
 

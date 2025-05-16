@@ -8,6 +8,7 @@ import {
 import { find_query } from "../controller/findQuery";
 import { insert_user } from "../controller/1-to-1";
 import { insert_employee } from "../controller/ent-1ToMany--ManyToOne";
+import { insert_question } from "../controller/manyTomany";
 
 const router = Router();
 
@@ -22,4 +23,8 @@ router.post("/api/v1/user_one_one", insert_user);
 
 // 1 to Many --- Many to 1 //
 router.post("/api/v1/user_one_many", insert_employee);
+
+// Many to Many  //
+router.post("/api/v1/user_many_many", insert_question);
+
 export default router;
