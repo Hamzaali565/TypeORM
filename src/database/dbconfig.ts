@@ -1,6 +1,5 @@
 import path from "path";
 import { DataSource } from "typeorm";
-import { User } from "../entity/user";
 
 // const dbConfig = new DataSource({
 //   type: "mysql",
@@ -24,8 +23,8 @@ const AppDataSource = new DataSource({
   port: parseInt(process.env.TYPEORM_DBPORT || "3306"),
   logging: true,
   synchronize: true,
-  // entities: [path.join(__dirname, "../entity/*.ts")],
-  entities: [User],
+  entities: [path.join(__dirname, "../ent-relation-1-to-1/*.ts")],
+  // entities: [User],
 });
 
 export { AppDataSource };
