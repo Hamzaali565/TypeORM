@@ -2,11 +2,13 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../database/dbconfig";
 import { Employee } from "../ent-1ToMany--ManyToOne/Employee";
 import { Photo } from "../ent-1ToMany--ManyToOne/Photo";
+import { Details } from "../ent-1ToMany--ManyToOne/Details";
 
 const insert_employee = async (req: Request, res: Response) => {
   try {
     const empManager = AppDataSource.getRepository(Employee);
     const photoManager = AppDataSource.getRepository(Photo);
+    const detailManager = AppDataSource.getRepository(Details);
 
     //many to one relation
     // const employee = new Employee();
@@ -35,7 +37,15 @@ const insert_employee = async (req: Request, res: Response) => {
     const employee = new Employee();
     employee.name = "hamza ali chishti";
     employee.photos = [p1, p2];
+    // employee.details = details;
     await empManager.save(employee);
+
+    const details = new Details();
+    details.address = "a431";
+    details.emp_name = "Asad";
+    details.employee = employee;
+    await detailManager.save(details);
+
     res.json({ message: "Data saved", employee });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
