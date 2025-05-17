@@ -31,6 +31,10 @@ const get_user = async (req: Request, res: Response) => {
     //
     // const repo = AppDataSource.getRepository(User);
     // let data = await repo.find({ relations: ["profile"] });
+    // data = await repo
+    //   .createQueryBuilder("user")
+    //   .leftJoinAndSelect("user.profile", "profile")
+    //   .getMany();
 
     const repo = AppDataSource.getRepository(Profile);
     let data = await repo
