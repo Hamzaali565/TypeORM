@@ -40,7 +40,8 @@ const get_user = async (req: Request, res: Response) => {
     let data = await repo
       .createQueryBuilder("profile")
       .leftJoinAndSelect("profile.user", "user")
-      .getMany();
+      .select(["user.username"])
+      .getRawMany();
 
     res.json({ data });
   } catch (error) {
