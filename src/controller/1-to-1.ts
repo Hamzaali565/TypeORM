@@ -26,4 +26,24 @@ const insert_user = async (req: Request, res: Response) => {
   }
 };
 
-export { insert_user };
+const get_user = async (req: Request, res: Response) => {
+  try {
+    //
+    // const repo = AppDataSource.getRepository(User);
+    // let data = await repo.find({ relations: ["profile"] });
+
+    const repo = AppDataSource.getRepository(Profile);
+    let data = await repo
+      .createQueryBuilder("profile")
+      .leftJoinAndSelect("profile.user", "user")
+      .getMany();
+
+    res.json({ data });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({ message: "Internal server error !!!" });
+  }
+};
+
+export { insert_user, get_user };

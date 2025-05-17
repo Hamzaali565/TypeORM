@@ -20,7 +20,7 @@ export class Details {
 
   @OneToOne(() => Employee)
   @JoinColumn({
-    name: "Emp_id",
+    name: "emp_id",
   })
   employee!: Employee;
 }
